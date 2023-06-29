@@ -72,13 +72,16 @@ class Article
     private $Pagination;
 
     /**
-     * @ORM\Column(type="binary", nullable=true)
+     * @ORM\OneToMany(targetEntity=Photo::class, mappedBy="article", orphanRemoval=true)
      */
-    private $image;
+    private $photos;
+
+
 
     public function __construct()
     {
         $this->comment = new ArrayCollection();
+        $this->photos = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -224,14 +227,32 @@ class Article
         return $this;
     }
 
-    public function getImage()
+    /**
+     * @return Collection<int, Photo>
+     */
+    public function getPhotos(): Collection
     {
-        return $this->image;
+        return $this->photos;
     }
 
-    public function setImage($image): self
+    public function addPhoto(Photo $photo): self
     {
-        $this->image = $image;
+        if (!$this->photos->contains($photo)) {
+            $this->photos[] = $photo;
+            $photo->setArticle($this);
+        }
+
+        return $this;
+    }
+
+    public function removePhoto(Photo $photo): self
+    {
+        if ($this->photos->removeElement($photo)) {
+            // set the owning side to null (unless already changed)
+            if ($photo->getArticle() === $this) {
+                $photo->setArticle(null);
+            }
+        }
 
         return $this;
     }

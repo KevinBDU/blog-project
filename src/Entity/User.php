@@ -47,6 +47,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $Newsletter;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $name;
+
     public function __construct()
     {
         $this->articles = new ArrayCollection();
@@ -179,6 +184,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setNewsletter(?Newsletter $Newsletter): self
     {
         $this->Newsletter = $Newsletter;
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(?string $name): self
+    {
+        $this->name = $name;
 
         return $this;
     }
