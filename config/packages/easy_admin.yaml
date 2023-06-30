@@ -1,0 +1,10 @@
+easy_admin:
+  design:
+    form_theme: "@MyAdmin/form/tinymce.html.twig"
+
+  entities:
+    Article:
+      class: App\Entity\Article
+      form:
+        fields:
+          - { property: "description", type: "tinymce" }
