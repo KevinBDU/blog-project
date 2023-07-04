@@ -2,14 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\ArticlesRepository;
+use App\Repository\ArticleRepository;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=ArticlesRepository::class)
+ * @ORM\Entity(repositoryClass=ArticleRepository::class)
  */
 class Article
 {
@@ -43,16 +43,16 @@ class Article
     private $comment;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="articles")
+     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="Article")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $Category;
+    private $category;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="articles")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="Article")
+     * @ORM\JoinColumn(nullable=false, referencedColumnName="id", name="user_id")
      */
-    private $Users;
+    private $user;
 
     /**
      * @ORM\Column(type="text")
@@ -168,24 +168,24 @@ class Article
 
     public function getCategory(): ?Category
     {
-        return $this->Category;
+        return $this->category;
     }
 
     public function setCategory(?Category $Category): self
     {
-        $this->Category = $Category;
+        $this->category = $Category;
 
         return $this;
     }
 
-    public function getUsers(): ?User
+    public function getUser(): ?User
     {
-        return $this->Users;
+        return $this->user;
     }
 
-    public function setUsers(?User $Users): self
+    public function setUser(?User $user): self
     {
-        $this->Users = $Users;
+        $this->user = $user;
 
         return $this;
     }

@@ -10,6 +10,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\HiddenField;
+use Symfony\Component\VarDumper\VarDumper;
 
 class ArticleCrudController extends AbstractCrudController
 {
@@ -18,22 +19,28 @@ class ArticleCrudController extends AbstractCrudController
         return Article::class;
     }
 
+    public function createEntity(string $entityFqcn)
+    {
+        $article = new Article();
+        $user = $this->getUser();
+        if ($user) {
+            $article->setUser($user);
+            return $article;
+        }
+    }
 
 
     public function configureFields(string $pageName): iterable
     {
-        $userId = $this->getUser()->getId();
         return [
-            yield HiddenField::new('Users')->setValue($userId),
             yield TextField::new('title'),
             yield TextField::new('meta_title'),
             yield TextareaField::new('description'),
             yield TextField::new('meta_desc'),
-            yield AssociationField::new('Category'),
-            yield ImageField::new('images')->setUploadDir('public/uploads/images/')
-
-
-
+            yield AssociationField::new('category'),
+            yield ImageField::new('images')
+                ->setBasePath('uploads/images/')
+                ->setUploadDir('public/uploads/images/')
         ];
     }
 }

@@ -40,12 +40,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $password;
 
     /**
-     * @ORM\OneToMany(targetEntity=Article::class, mappedBy="Users", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Article::class, mappedBy="user", orphanRemoval=true)
      */
     private $articles;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Newsletter::class, inversedBy="users")
+     * @ORM\ManyToOne(targetEntity=Newsletter::class, inversedBy="user")
      */
     private $Newsletter;
 
@@ -165,7 +165,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if (!$this->articles->contains($article)) {
             $this->articles[] = $article;
-            $article->setUsers($this);
+            $article->setuser($this);
         }
 
         return $this;
@@ -175,8 +175,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if ($this->articles->removeElement($article)) {
             // set the owning side to null (unless already changed)
-            if ($article->getUsers() === $this) {
-                $article->setUsers(null);
+            if ($article->getuser() === $this) {
+                $article->setuser(null);
             }
         }
 
@@ -217,5 +217,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->isVerified = $isVerified;
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->getUserIdentifier();
     }
 }
