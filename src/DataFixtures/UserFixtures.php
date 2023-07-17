@@ -30,15 +30,15 @@ class UserFixtures extends Fixture implements OrderedFixtureInterface, Container
     public function load(ObjectManager $manager)
     {
         $users = array(
-            ["assistance@leseditionscorses.com", "Admin", "Les Editions Corses", "Mr.", ["ROLE_SUPER_ADMIN"], "Cp20112b"],
+            ["kevin@leseditionscorses.com", "Admin", "Les Editions Corses", "Mr.", ["ROLE_SUPER_ADMIN"], "Cp20112b"],
         );
 
 
         foreach ($users as $user) {
             $u = new User();
             $u->setEmail($user[0]);
-            // $u->setUsername($user[0]);
-            // $u->setName($user[1]);
+            $u->setUsername($user[1]);
+            $u->setName($user[2]);
             // $u->setFirstname($user[2]);
             // $u->setCivility($user[3]);
             // $u->setCreationDate(new DateTime("NOW"));

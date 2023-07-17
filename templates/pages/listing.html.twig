@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<title>Listing</title>
+		<link rel="stylesheet" href="../styles/style.css"/>
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow&amp;family=Barlow+Condensed&amp;family=Gilda+Display&amp;display=swap"/>
+		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
+	</head>
+	<body>
+		<!-- <header>
+																																      <div>
+																																        <a href="index.html"><img src="img/logo.bmp" alt="" /></a>
+																																      </div>
+																																      <div class="banner">
+																																        <h5>hotel blog</h5>
+																																        <h1>Ours News</h1>
+																																      </div>
+																																    </header> -->
+		<section class="listing-content">
+			{% for article in articles %}
+				<article>
+					<a class="content-img" href="#"><img src="uploads/{{article.images}}" alt=""/></a>
+					<a href="#">
+						<p class="tag">{{article.category}}</p>
+					</a>
+					<h5 class="title">
+						<a href="#">{{ article.title }}</a>
+					</h5>
+					{{ article.description }}
+					<a href="#" class="btn">Read More</a>
+				</article>
+				{# <article>
+																																													<a class="content-img" href="#"><img src="img/spa.bmp" alt=""/></a>
+																																													<a href="#">
+																																														<p class="tag">spa center</p>
+																																													</a>
+																																													<h5 class="title">
+																																														<a href="#">Benefits of Spa Treatments</a>
+																																													</h5>
+																																													<p>
+																																														Hotel Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quos,
+																																																																		          quae eaque odio laboriosam ipsam excepturi officiis eius provident
+																																																																		          laudantium velit non corrupti reiciendis tempora beatae debitis hic
+																																																																		          tempore quaerat neque molestiae deserunt, magnam itaque. Voluptate
+																																																																		          autem minima vero dolore ipsa commodi, animi veritatis impedit veniam
+																																																																		          cupiditate, minus sint voluptas a.
+																																													</p>
+																																													<a href="#" class="btn">Read More</a>
+																																												</article>
+																																												<article>
+																																													<a class="content-img" href="#"><img src="img/banner.bmp" alt=""/></a>
+																																													<a href="#">
+																																														<p class="tag">hotel design</p>
+																																													</a>
+																																													<h5 class="title">
+																																														<a href="#">Retro Lighting Design in The Hotels</a>
+																																													</h5>
+																																													<p>
+																																														Hotel Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quos,
+																																																																		          quae eaque odio laboriosam ipsam excepturi officiis eius provident
+																																																																		          laudantium velit non corrupti reiciendis tempora beatae debitis hic
+																																																																		          tempore quaerat neque molestiae deserunt, magnam itaque. Voluptate
+																																																																		          autem minima vero dolore ipsa commodi, animi veritatis impedit veniam
+																																																																		          cupiditate, minus sint voluptas a.
+																																													</p>
+																																													<a href="#" class="btn">Read More</a>
+																																												</article> #}
+
+				<div class="pagination">
+					<ul>
+						<li><a href="">&lt;</a></li>
+						<li><a href="">1</a></li>
+						<li><a href="">2</a></li>
+						<li><a href="">3</a></li>
+						<li><a href="">></a></li>
+					</ul>
+				</div>
+			{% endfor %}
+		</section>
+		<aside class="side-bar">
+			<div class="widget search">
+				<form action="">
+					<input type="text" placeholder="Type here ..."/>
+					<button type="submit"></button>
+				</form>
+			</div>
+			<div class="widget historic">
+				<h6>Recent Posts</h6>
+				<ul>
+					<li>
+						<img src="img/restaurant.bmp" alt=""/>
+
+						<a href="#">Historic restaurant renovated</a>
+					</li>
+					<li>
+						<img src="img/spa.bmp" alt=""/>
+						<a href="#">Benefits of Spa Treatments</a>
+					</li>
+					<li>
+						<img src="img/banner.bmp" alt=""/>
+
+						<a href="#">Retro Lighting Design in The Hotels</a>
+					</li>
+				</ul>
+			</div>
+			<div class="widget archive">
+				<h6>Archives</h6>
+				<ul>
+					<li><a href="#">December 2022</a></li>
+					<li><a href="#">November 2022</a></li>
+					<li><a href="#">October 2022</a></li>
+				</ul>
+			</div>
+			<div class="widget category">
+				<h6>Categories</h6>
+				<ul>
+					<li><a href="#">> Restaurant</a></li>
+					<li><a href="#">> Hotel Design</a></li>
+					<li><a href="#">> Span Center</a></li>
+				</ul>
+			</div>
+			<div class="widget tags">
+				<h6>Tags</h6>
+				<ul>
+					<li><a href="#">Restaurant</a></li>
+					<li><a href="#">Hotel</a></li>
+					<li><a href="#">Spa</a></li>
+					<li><a href="#">Health Club</a></li>
+					<li><a href="#">Luxury Hotel</a></li>
+				</ul>
+			</div>
+		</aside>
+	</body>
+</html></body></html>
