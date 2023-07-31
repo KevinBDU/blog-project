@@ -11,12 +11,16 @@ use Symfony\Component\Routing\Annotation\Route;
 class ListingController extends AbstractController
 {
     /**
-     * @Route("/listing", name="app_listing")
+     * @Route("/listing", name="blog_listing")
      */
-    public function index(): Response
+    public function index(ArticleRepository $repository): Response
     {
+
+        $articles = $repository->findAll();
+
         return $this->render('pages/listing.html.twig', [
             'controller_name' => 'ListingController',
+            'articles' => $articles
         ]);
     }
 }

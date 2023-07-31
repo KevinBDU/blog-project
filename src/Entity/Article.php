@@ -7,6 +7,7 @@ use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ArticleRepository::class)
@@ -85,6 +86,12 @@ class Article
      * @ORM\Column(type="string", nullable=true)
      */
     private $images;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Assert\Regex(pattern="/^[a-z0-9\-]+$/")
+     */
+    private $slug;
 
 
 
@@ -276,6 +283,18 @@ class Article
     public function setImages(?string $images): self
     {
         $this->images = $images;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }
