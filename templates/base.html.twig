@@ -14,6 +14,63 @@
 		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/> {% block javascripts %}{% endblock %}
 		</head>
 		<body>
-			{% block body %}{% endblock %}
+			{% block body %}
+				{% block header %}<!-- <header>
+																																						<div>
+																																						<a href="index.html"><img src="img/logo.bmp" alt="" /></a>
+																																						</div>
+																																						<div class="banner">
+																																						<h5>hotel blog</h5>
+																																						<h1>Ours News</h1>
+																																						</div>
+																																						</header> -->{% endblock %}
+				{% block sidebar %}
+					<aside class="side-bar">
+						<div class="widget search">
+							<form action="">
+								<input type="text" placeholder="Type here ..."/>
+								<button type="submit"></button>
+							</form>
+						</div>
+						<div class="widget recent">
+							<h6>Recent Posts</h6>
+							<ul>
+								{% for article in articles|reverse|slice(0, 3) %}
+									<li>
+										<img src="{{ asset("uploads/img/" ~ article.images) }}" alt=""/>
+										<a href="{{ path('blog_detail', {'slug': article.slug}) }}">{{article.title}}</a>
+									</li>
+								{% endfor %}
+							</ul>
+						</div>
+						<div class="widget category">
+							<h6>Categories</h6>
+							<ul>
+								{% set displayedCategories = [] %}
+								{% for article in articles|reverse|slice(0, 3) %}
+									{% if article.category not in displayedCategories %}
+										{% set displayedCategories = displayedCategories|merge([article.category]) %}
+										<li>
+											<a href="#">>
+												{{article.category}}</a>
+										</li>
+									{% endif %}
+								{% endfor %}
+							</ul>
+						</div>
+						<div class="widget tags">
+							<h6>Tags</h6>
+							<ul>
+								<li><a href="#">Restaurant</a></li>
+								<li><a href="#">Hotel</a></li>
+								<li><a href="#">Spa</a></li>
+								<li><a href="#">Health Club</a></li>
+								<li><a href="#">Luxury Hotel</a></li>
+							</ul>
+						</div>
+					</aside>
+				{% endblock sidebar %}
+			{% endblock body %}
 		</body>
 	</html>
+</body></html>

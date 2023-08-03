@@ -5,7 +5,7 @@
 	{% block header %}{% endblock %}
 	<div class="container">
 		<section class="listing-post">
-			{% for article in articles %}
+			{% for article in articles|reverse|slice(0, 5) %}
 				<article class="post">
 					<a class="content-img" href="{{ path('blog_detail', {'slug': article.slug}) }}">
 						<img src="{{ asset("uploads/img/" ~ article.images) }}" alt=""/>

@@ -18,16 +18,32 @@ body {
   overflow-x: hidden !important;
 }
 
-.listing-content {
+p {
+  font-family: "Barlow", sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.75em;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.container {
+  display: flex;
+  margin: auto;
+  flex-direction: column;
+}
+
+.listing-post,
+.detail-content {
   padding: 0 15px;
 }
 
-.listing-content article {
+.listing-post article {
   overflow: hidden;
   padding-bottom: 50px;
 }
 
-.listing-content img,
+.listing-post img,
 .detail-content img {
   width: 100%;
   height: auto;
@@ -44,7 +60,6 @@ body {
   color: #222;
 }
 
-p,
 .widget ul li a {
   color: #666;
 }
@@ -63,6 +78,9 @@ p,
 .btn {
   position: relative;
   line-height: 1.2em;
+}
+
+.btn a {
   font-weight: 400;
   font-family: "Barlow Condensed", sans-serif;
   text-transform: uppercase;
@@ -78,6 +96,29 @@ p,
 
 .btn:hover {
   border: 0px solid transparent;
+}
+
+.btn a:hover:after,
+.btn2:hover:after {
+  width: 100%;
+  left: 0;
+  -webkit-transition: width 0.3s ease;
+  transition: width 0.3s ease;
+}
+
+.btn a:after,
+.btn2:after {
+  content: "";
+  width: 0;
+  height: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 100%;
+  z-index: 1;
+  background: #222;
+  color: #fff;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .title a:hover {
@@ -115,16 +156,17 @@ input[type="text"]:focus {
   border-radius: 100%;
 }
 
-.widget {
+.side-bar .widget {
   display: flex;
   flex-flow: column nowrap;
+  width: 100%;
   background: #f8f5f0;
   padding: 30px;
-  margin: 30px 15px;
+  margin-bottom: 30px;
   overflow: hidden;
 }
 
-.widget h6 {
+.side-bar .widget h6 {
   font-family: "Gilda Display", serif;
   font-weight: 400;
   line-height: 1.75em;
@@ -139,11 +181,16 @@ input[type="text"]:focus {
   padding: 10px;
 }
 
-.historic ul li {
+.side-bar .recent ul {
+  margin: 0;
+  padding: 0;
+}
+
+.side-bar .recent ul li {
   display: flex;
 }
 
-.historic img {
+.side-bar .recent img {
   width: 90px;
   height: auto;
   object-fit: contain;
@@ -151,12 +198,7 @@ input[type="text"]:focus {
   padding: 5px 0;
 }
 
-.historic ul {
-  margin: 0;
-  padding: 0;
-}
-
-.search form button {
+.side-bar .search form button {
   position: absolute;
   right: 0;
   top: 0;
@@ -167,12 +209,20 @@ input[type="text"]:focus {
   cursor: pointer;
 }
 
+.side-bar .search form input {
+  width: 100%;
+  padding: 10px;
+  border: 0;
+  background: #fff;
+  margin-bottom: 0;
+}
+
 .tags ul li a {
-  margin: 3px !important;
+  margin: 3px;
   padding: 8px 20px;
   background-color: #fff;
   border: 1px solid #fff;
-  color: #666 !important;
+  color: #666;
   float: left;
 }
 
@@ -198,24 +248,38 @@ input[type="text"]:focus {
 .pagination li a:hover {
   border-color: #aa8453;
 }
+
+@media only screen and (min-width: 576px) {
+  .container {
+    max-width: 540px;
+  }
+}
+
 @media only screen and (min-width: 768px) {
-  body {
+  .container {
+    max-width: 720px;
     flex-direction: row;
     justify-content: center;
   }
 
-  .historic img {
+  .listing-post,
+  .detail-content {
+    width: 66.66666667%;
+  }
+
+  .post {
+    flex: 0 0 auto;
+    width: 100%;
+  }
+
+  .recent img {
     min-width: 90px;
   }
 
-  .listing-content,
-  .detail-content {
-    max-width: 67%;
-  }
-
   .side-bar {
-    flex: 0 0 auto;
+    flex: 1;
     max-width: 33%;
+    padding: 0 15px;
   }
 
   .search {
@@ -229,18 +293,13 @@ input[type="text"]:focus {
 }
 
 @media only screen and (min-width: 992px) {
-  .listing-content,
-  .detail-content {
-    max-width: 50%;
-  }
-
-  .side-bar {
-    max-width: 25%;
+  .container {
+    max-width: 960px;
   }
 }
 
 @media only screen and (min-width: 1200px) {
-  .side-bar {
-    max-width: 22%;
+  .container {
+    max-width: 1140px;
   }
 }
