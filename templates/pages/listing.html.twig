@@ -15,7 +15,7 @@
 							<p class="tag">{{article.category}}</p>
 						</a>
 						<h5 class="title">
-							<a href="#">{{ article.title }}</a>
+							<a href="{{ path('blog_detail', {'slug': article.slug}) }}">{{ article.title }}</a>
 						</h5>
 						<p>{{ article.description }}</p>
 						<div class="btn">
@@ -25,15 +25,8 @@
 				</article>
 			{% endfor %}
 
-			<div class="pagination">
-				<ul>
-					<li><a href="">&lt;</a></li>
-					<li><a href="">1</a></li>
-					<li><a href="">2</a></li>
-					<li><a href="">3</a></li>
-					<li><a href="">></a></li>
-				</ul>
-			</div>
+			{{ knp_pagination_render(articles) }}
+
 		</section>
 		{% block sidebar %}
 			{{parent()}}

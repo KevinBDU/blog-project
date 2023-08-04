@@ -132,16 +132,16 @@ input[type="text"]:focus {
   border-color: #aa8453;
 }
 
-.pagination ul {
+.pagination {
   text-align: center;
 }
 
-.pagination li {
+.pagination span {
   display: inline-block;
   margin: 0 5px;
 }
 
-.pagination li a {
+.pagination span {
   background: transparent;
   display: inline-block;
   width: 40px;
