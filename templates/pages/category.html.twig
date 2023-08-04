@@ -5,7 +5,7 @@
 	{% block header %}{% endblock %}
 	<div class="container">
 		<section class="listing-post">
-			{% if article.category == {slug} %}
+			{% if article.category == category.slug %}
 				{% for article in articles %}
 					<article class="post">
 						<a class="content-img" href="{{ path('blog_detail', {'slug': article.slug}) }}">
