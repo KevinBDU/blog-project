@@ -7,10 +7,12 @@ use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ArticleRepository::class)
+ * @UniqueEntity("slug")
  */
 class Article
 {
@@ -60,17 +62,6 @@ class Article
      */
     private $description;
 
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $Pagination;
-
-
-
-    /**
-     * @ORM\OneToMany(targetEntity=Photo::class, mappedBy="article", orphanRemoval=true)
-     */
-    private $photos;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -83,23 +74,48 @@ class Article
     private $meta_desc;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="string", length=255)
      */
     private $images;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Regex(pattern="/^[a-z0-9\-]+$/")
+     * @Assert\Regex(pattern="/^[a-z0-9\-]+$/", message="Le slug ne correspond pas à une URL valide")
      */
     private $slug;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $image2;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $image3;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $citation;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $description2;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Tag::class, inversedBy="articles", cascade={"persist"})
+     */
+    private $tags;
 
 
 
     public function __construct()
     {
         $this->comment = new ArrayCollection();
-        $this->photos = new ArrayCollection();
         $this->date_creation = new DateTime();
+        $this->tags = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -209,47 +225,6 @@ class Article
         return $this;
     }
 
-    public function getPagination(): ?int
-    {
-        return $this->Pagination;
-    }
-
-    public function setPagination(int $Pagination): self
-    {
-        $this->Pagination = $Pagination;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Photo>
-     */
-    public function getPhotos(): Collection
-    {
-        return $this->photos;
-    }
-
-    public function addPhoto(Photo $photo): self
-    {
-        if (!$this->photos->contains($photo)) {
-            $this->photos[] = $photo;
-            $photo->setArticle($this);
-        }
-
-        return $this;
-    }
-
-    public function removePhoto(Photo $photo): self
-    {
-        if ($this->photos->removeElement($photo)) {
-            // set the owning side to null (unless already changed)
-            if ($photo->getArticle() === $this) {
-                $photo->setArticle(null);
-            }
-        }
-
-        return $this;
-    }
 
     public function getMetaTitle(): ?string
     {
@@ -297,5 +272,84 @@ class Article
         $this->slug = $slug;
 
         return $this;
+    }
+
+    public function getImage2(): ?string
+    {
+        return $this->image2;
+    }
+
+    public function setImage2(?string $image2): self
+    {
+        $this->image2 = $image2;
+
+        return $this;
+    }
+
+    public function getImage3(): ?string
+    {
+        return $this->image3;
+    }
+
+    public function setImage3(?string $image3): self
+    {
+        $this->image3 = $image3;
+
+        return $this;
+    }
+
+    public function getCitation(): ?string
+    {
+        return $this->citation;
+    }
+
+    public function setCitation(?string $citation): self
+    {
+        $this->citation = $citation;
+
+        return $this;
+    }
+
+    public function getDescription2(): ?string
+    {
+        return $this->description2;
+    }
+
+    public function setDescription2(?string $description2): self
+    {
+        $this->description2 = $description2;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Tag>
+     */
+    public function getTags(): Collection
+    {
+        return $this->tags;
+    }
+
+    public function addTag(Tag $Tag): self
+    {
+        if (!$this->tags->contains($Tag)) {
+            $this->tags[] = $Tag;
+        }
+
+        return $this;
+    }
+
+    public function removeTag(Tag $Tag): self
+    {
+        $this->tags->removeElement($Tag);
+
+        return $this;
+    }
+
+
+
+    public function __toString()
+    {
+        return $this->title;
     }
 }

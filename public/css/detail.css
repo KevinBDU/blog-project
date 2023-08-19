@@ -46,13 +46,37 @@ cite {
 }
 
 .comment-content {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
 }
 
 .comment-content a:hover {
   color: #666;
+}
+.comment-content > .comment-item + .comment-item {
+  margin-top: 50px;
+}
+.comment-replies {
+  margin-top: 25px;
+  padding-left: 50px;
+  padding-top: 25px;
+  border-top: 1px solid rgba(0, 0, 0, 0.125);
+  width: 100%;
+}
+.comment-replies .comment-item + .comment-item {
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid rgba(0, 0, 0, 0.125);
+
+}
+.comment-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.comment-item p {
+  margin: 0;
 }
 
 .comment h3 {
@@ -68,17 +92,6 @@ cite {
 .comment a {
   display: inline-block;
   color: #aa8453;
-}
-
-.comment img {
-  width: 100px;
-  height: auto;
-  border-radius: 100%;
-}
-
-.user-img {
-  flex: 0 0 auto;
-  padding-right: 20px;
 }
 
 .comment-section h3 {
@@ -112,7 +125,13 @@ textarea {
   border-bottom: 1px solid #ececec;
 }
 
-.resto-img img {
+.detail-img {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.detail-img img {
   margin: 5px;
 }
 
@@ -120,46 +139,6 @@ textarea {
   font-size: 10px;
   font-family: "Barlow", sans-serif;
   color: #666;
-}
-
-.rating-star {
-  --star-color: orange;
-  margin: 1em auto;
-  font-size: 8px;
-  position: relative;
-  display: inline-block;
-  width: 0px;
-  height: 0px;
-  border-right: 1em solid transparent;
-  border-bottom: 0.7em solid var(--star-color);
-  border-left: 1em solid transparent;
-  transform: rotate(35deg);
-}
-.rating-star:before {
-  border-bottom: 0.8em solid var(--star-color);
-  border-left: 0.3em solid transparent;
-  border-right: 0.3em solid transparent;
-  position: absolute;
-  height: 0;
-  width: 0;
-  top: -0.45em;
-  left: -0.65em;
-  display: block;
-  content: "";
-  transform: rotate(-35deg);
-}
-.rating-star:after {
-  position: absolute;
-  display: block;
-  top: 0.03em;
-  left: -1.05em;
-  width: 0;
-  height: 0;
-  border-right: 1em solid transparent;
-  border-bottom: 0.7em solid var(--star-color);
-  border-left: 1em solid transparent;
-  transform: rotate(-70deg);
-  content: "";
 }
 
 .btn2 {
@@ -177,10 +156,16 @@ textarea {
   letter-spacing: 3px;
   border: 0;
   cursor: pointer;
+  z-index: 1;
 }
 
 @media screen and (min-width: 768px) {
   .comment-section {
     max-width: 66%;
+  }
+
+  .detail-img {
+    flex-direction: row;
+    width: 50%;
   }
 }

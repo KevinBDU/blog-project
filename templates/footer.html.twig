@@ -1,0 +1,25 @@
+ <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="{{ asset('img/logo.png') }}" alt="Logo">
+            </div>
+            <div class="footer-links">
+                <ul>
+                    <li>
+				<a href="{{ path('blog_listing') }}">Accueil</a>
+			</li>
+			<li>
+				<a href="#">À propos</a>
+			</li>
+			<li>
+				<a href="#">Contact</a>
+			</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; {{ "now"|date("Y") }} Mon Site Web. Tous droits réservés.</p>
+        </div>
+    </footer>
+</body>
+</html>

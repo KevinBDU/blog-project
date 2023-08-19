@@ -18,6 +18,7 @@ class CommentCrudController extends AbstractCrudController
         return [
             'author',
             'content',
+            'active'
         ];
     }
 }

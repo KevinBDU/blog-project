@@ -3,74 +3,85 @@
 	Detail Article
 {% endblock %}
 {% block body %}
-	{% block header %}{% endblock %}
+	{% block header %}
+		{{parent()}}
+	{% endblock %}
 	<div class="container">
 		<section class="detail-content">
 			<article class="post">
-				<img src="{{ asset("uploads/img/" ~ article.images) }}" alt=""/>
+				<img src="{{ asset("uploads/img/" ~ article.images) }}" alt="image1"/>
 				<h2>{{ article.title }}</h2>
 				<p>
-					{{ article.description }}
+					{{ article.description|raw }}
 				</p>
-				<blockquote>
+				{% if article.citation %}
+					<blockquote>
+						<p>
+							{{article.citation|raw}}
+						</p>
+						<cite></cite>
+					</blockquote>
+				{% endif %}
+
+				{% if article.image2 or article.image3 %}
+					<div class="detail-img">
+						<img src="{{ asset("uploads/img/" ~ article.image2) }}" alt="image2"/>
+						<img src="{{ asset("uploads/img/" ~ article.image3) }}" alt="image3"/>
+					</div>
+				{% endif %}
+				{% if article.description2 %}
 					<p>
-						Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti
-																		doloribus voluptas asperiores accusantium, sequi optio ab voluptate
-																		repellendus laudantium minus similique debitis perspiciatis. Vitae,
-																		perspiciatis? Accusantium ipsum temporibus quam eveniet!
+						{{article.description2|raw }}
 					</p>
-					<cite>&#8212; Micheal Martin</cite>
-				</blockquote>
-				<div class="resto-img">
-					<img src="/img/restaurant2.bmp" alt=""/>
-					<img src="/img/restaurant3.bmp" alt=""/>
-				</div>
-				<p>
-					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui illum
-															officiis sed autem corporis voluptatibus quidem quam repellendus culpa
-															quasi, placeat ea praesentium maiores iusto odio ad ratione sunt amet
-															soluta vitae vero quaerat accusamus nihil. Debitis magni possimus
-															quaerat quia totam commodi provident, rem ipsum dignissimos autem
-															accusamus esse.
-				</p>
+				{% endif %}
+
 			</article>
 			<div class="comment">
-				<div class="user-img">
-					<img src="/img/user.bmp" alt=""/>
-				</div>
 				<div class="comment-content">
-					<span>
-						<div class="rating-star"></div>
-						<div class="rating-star"></div>
-						<div class="rating-star"></div>
-						<div class="rating-star"></div>
-						<div class="rating-star"></div>
-					</span>
-
-					<h3>Robert Martin &nbsp;<span>29 October 2022</span>
-					</h3>
-
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officiis
-												voluptas sed aliquam cum incidunt sit, quaerat optio dolore, quasi
-												mollitia sequi, labore atque ea explicabo laboriosam ut soluta
-												laborum. Aperiam.
-					</p>
-					<a href="#">Reply &#10550;</a>
+					{% for comment in article.comment|filter(c => c.active == 1) %}
+						{% if comment.parent == null %}
+							<div class="comment-item" data-id="{{comment.id}}">
+								<h3>{{comment.author}},
+									<span>a écrit le
+										{{comment.DateCreation|date("d/m/Y H:i")}}</span>
+								</h3>
+								<p>{{comment.content|raw}}</p>
+								<a href="#commentForm" data-author="{{comment.author}}" data-reply data-id="{{comment.id}}">{{"Reply"|trans}}
+									&#10550;</a>
+								<div class="comment-replies">
+									{% for reply in comment.replies %}
+										<div class="comment-item">
+											<h3>{{reply.author}},
+												<span>a répondu le
+													{{reply.DateCreation|date("d/m/Y H:i")}}</span>
+											</h3>
+											<p>{{reply.content|raw}}</p>
+										</div>
+									{% endfor %}
+								</div>
+							</div>
+						{% endif %}
+					{% endfor %}
 				</div>
 			</div>
-			<div class="comment-section">
-				<h3>Leave a Reply</h3>
-				<form action="">
-					<input type="text" placeholder="Full Name" required/>
-					<input type="text" placeholder="Email Address" required/>
-					<textarea name="message" id="message" cols="40" rows="4" placeholder="Your Comment" required></textarea>
-					<button class="btn2" type="submit">send comment</button>
-				</form>
-			</div>
-		</section>
-		{% block sidebar %}
+			<div class="comment-section" id="commentForm">
+				<h3>{{'Leave a Reply'|trans}}</h3>
+				{{ form(form) }}
+					{% for message in app.flashes('form_success') %}
+						<div class="alert alert-success">
+							{{ message }}
+						</div>
+					{% endfor %}
+				</div>
+			</section>
+			{% block sidebar %}
+				{{parent()}}
+			{% endblock %}
+		</div>
+		{% block footer %}
 			{{parent()}}
 		{% endblock %}
-	</div>
-{% endblock %}
+	{% endblock %}
+	{% block javascripts %}
+		<script src="{{asset("js/detail.js")}}"></script>
+	{% endblock %}

@@ -2,28 +2,41 @@
 {% block title %}Listing Article
 {% endblock %}
 {% block body %}
-	{% block header %}{% endblock %}
+	{% block header %}
+		{{parent()}}
+	{% endblock %}
 	<div class="container">
 		<section class="listing-post">
-			{% for article in articles %}
-				<article class="post">
-					<a class="content-img" href="{{ path('blog_detail', {'slug': article.slug}) }}">
-						<img src="{{ asset("uploads/img/" ~ article.images) }}" alt=""/>
-					</a>
-					<div class="post-content">
-						<a href="#">
-							<p class="tag">{{article.category}}</p>
+			{% if articles|length >= 1 %}
+				{% for article in articles|reverse|slice(0, 5) %}
+					<article class="post">
+						<a class="content-img" href="{{ path('blog_detail', {'slug': article.slug}) }}">
+							<img src="{{ asset("uploads/img/" ~ article.images) }}" alt=""/>
 						</a>
-						<h5 class="title">
-							<a href="{{ path('blog_detail', {'slug': article.slug}) }}">{{ article.title }}</a>
-						</h5>
-						<p>{{ article.description }}</p>
-						<div class="btn">
-							<a href="{{ path('blog_detail', {'slug': article.slug}) }}">Read More</a>
+						<div class="post-content">
+							<a href="#">
+								<p class="tag">{{article.category}}</p>
+							</a>
+							<h5 class="title">
+								<a href="{{ path('blog_detail', {'slug': article.slug}) }}">{{ article.title }}</a>
+							</h5>
+							<p>{{ article.description|u.truncate(500, '...')|raw }}</p>
+							<div class="btn">
+								<a href="{{ path('blog_detail', {'slug': article.slug}) }}">
+									<span>{{"Read More"|trans}}</span>
+								</a>
+							</div>
 						</div>
+					</article>
+				{% endfor %}
+			{% else %}
+				<article class="post">
+					<div class="error">
+						<p>{{userSearch is defined and userSearch ? "No posts found !"|trans : 'No posts for the moment !'|trans}}</p>
+						<img src="{{asset("img/404.jpg")}}" alt="Not found"/>
 					</div>
 				</article>
-			{% endfor %}
+			{% endif %}
 
 			{{ knp_pagination_render(articles) }}
 
@@ -32,4 +45,7 @@
 			{{parent()}}
 		{% endblock %}
 	</div>
+	{% block footer %}
+		{{parent()}}
+	{% endblock %}
 {% endblock %}

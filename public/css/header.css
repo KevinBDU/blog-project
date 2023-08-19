@@ -1,0 +1,36 @@
+.header {
+    background-color: #333;
+    color: #fff;
+    padding: 20px 0;
+    margin-bottom: 50px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.navbar {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.navbar-logo img {
+    height: 75px;
+}
+
+.navbar-menu {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    margin: 0 50px;
+}
+
+.navbar-menu li a {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.navbar-menu li a:hover {
+    color: #ff8c00;
+}

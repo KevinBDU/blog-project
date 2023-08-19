@@ -9,68 +9,82 @@
 		{% block stylesheets %}
 			<link rel="stylesheet" href="{{asset("css/style.css") }}"/>
 			<link rel="stylesheet" href="{{asset("css/detail.css") }}"/>
+			<link rel="stylesheet" href="{{asset("css/header.css") }}"/>
+			<link rel="stylesheet" href="{{asset("css/footer.css") }}"/>
 		{% endblock %}
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow&amp;family=Barlow+Condensed&amp;family=Gilda+Display&amp;display=swap"/>
-		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/> {% block javascripts %}{% endblock %}
-		</head>
-		<body>
-			{% block body %}
-				{% block header %}<!-- <header>
-																																						<div>
-																																						<a href="index.html"><img src="img/logo.bmp" alt="" /></a>
-																																						</div>
-																																						<div class="banner">
-																																						<h5>hotel blog</h5>
-																																						<h1>Ours News</h1>
-																																						</div>
-																																						</header> -->{% endblock %}
-				{% block sidebar %}
-					<aside class="side-bar">
-						<div class="widget search">
-							<form action="">
-								<input type="text" placeholder="Type here ..."/>
-								<button type="submit"></button>
-							</form>
-						</div>
-						<div class="widget recent">
-							<h6>Recent Posts</h6>
-							<ul>
-								{% for article in articles|reverse|slice(0, 3) %}
+		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
+	</head>
+	<body>
+		{% block body %}
+			{% block header %}
+				{% include "header.html.twig" %}
+			{% endblock %}
+			{% block sidebar %}
+				<aside class="side-bar">
+					<div class="widget search">
+						<form id="search-article">
+							<input name="search-value" type="text" placeholder="{{"Search article"|trans}}" value="{{ userSearch is defined and userSearch ? userSearch : ''}}"/>
+							<button type="submit">
+								<svg fill="#000000" height="16px" width="16px" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewbox="0 0 490.4 490.4" xml:space="preserve">
+									<g>
+										<path d="M484.1,454.796l-110.5-110.6c29.8-36.3,47.6-82.8,47.6-133.4c0-116.3-94.3-210.6-210.6-210.6S0,94.496,0,210.796
+																																	s94.3,210.6,210.6,210.6c50.8,0,97.4-18,133.8-48l110.5,110.5c12.9,11.8,25,4.2,29.2,0C492.5,475.596,492.5,463.096,484.1,454.796z
+																																	 M41.1,210.796c0-93.6,75.9-169.5,169.5-169.5s169.6,75.9,169.6,169.5s-75.9,169.5-169.5,169.5S41.1,304.396,41.1,210.796z"/>
+									</g>
+								</svg>
+							</button>
+						</form>
+					</div>
+					<div class="widget recent">
+						<h3 class="title-widget">{{'Recent posts'|trans}}</h3>
+						<ul>
+							{% for post in posts|reverse|slice(0, 3) %}
+								<li>
+									<img src="{{ asset("uploads/img/" ~ post.images) }}" alt=""/>
+									<a href="{{ path('blog_detail', {'slug': post.slug}) }}">{{post.title}}</a>
+								</li>
+							{% endfor %}
+						</ul>
+					</div>
+					<div class="widget category">
+						<h3 class="title-widget">{{'Categories'|trans}}</h3>
+						<ul>
+							{% set displayedCategories = [] %}
+							{% for post in posts|reverse|slice(0, 3) %}
+								{% if post.category not in displayedCategories %}
+									{% set displayedCategories = displayedCategories|merge([post.category]) %}
 									<li>
-										<img src="{{ asset("uploads/img/" ~ article.images) }}" alt=""/>
-										<a href="{{ path('blog_detail', {'slug': article.slug}) }}">{{article.title}}</a>
+										<a href="#">
+											{{post.category}}</a>
+									</li>
+								{% endif %}
+							{% endfor %}
+						</ul>
+					</div>
+					{% if tags is defined and tags|length %}
+						<div class="widget tags">
+							<h3 class="title-widget">Tags</h3>
+							<ul>
+								{% for tag in tags %}
+									<li>
+										<a href="#">{{tag.label}}</a>
 									</li>
 								{% endfor %}
 							</ul>
 						</div>
-						<div class="widget category">
-							<h6>Categories</h6>
-							<ul>
-								{% set displayedCategories = [] %}
-								{% for article in articles|reverse|slice(0, 3) %}
-									{% if article.category not in displayedCategories %}
-										{% set displayedCategories = displayedCategories|merge([article.category]) %}
-										<li>
-											<a href="#">>
-												{{article.category}}</a>
-										</li>
-									{% endif %}
-								{% endfor %}
-							</ul>
-						</div>
-						<div class="widget tags">
-							<h6>Tags</h6>
-							<ul>
-								<li><a href="#">Restaurant</a></li>
-								<li><a href="#">Hotel</a></li>
-								<li><a href="#">Spa</a></li>
-								<li><a href="#">Health Club</a></li>
-								<li><a href="#">Luxury Hotel</a></li>
-							</ul>
-						</div>
-					</aside>
-				{% endblock sidebar %}
-			{% endblock body %}
-		</body>
-	</html>
-</body></html>
+					{% endif %}
+				</aside>
+			{% endblock sidebar %}
+			{% block footer %}
+				{% include "footer.html.twig" %}
+			{% endblock %}
+		{% endblock body %}
+	</body>
+	{% block javascripts %}
+		<script>
+			var BASE_URL = "{{ path('blog_listing') }}"
+		</script>
+		<script src="{{asset("js/index.js")}}"></script>
+	{% endblock %}
+</html>

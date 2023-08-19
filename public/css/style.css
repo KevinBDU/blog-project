@@ -33,6 +33,7 @@ p {
   flex-direction: column;
 }
 
+
 .listing-post,
 .detail-content {
   padding: 0 15px;
@@ -43,11 +44,20 @@ p {
   padding-bottom: 50px;
 }
 
-.listing-post img,
+.post img,
 .detail-content img {
   width: 100%;
   height: auto;
+  aspect-ratio: 1/1;
   object-fit: cover;
+}
+
+.error {
+  text-align: center;
+}
+.error img {
+  aspect-ratio: unset;
+  object-fit: contain;
 }
 
 .title,
@@ -78,6 +88,7 @@ p {
 .btn {
   position: relative;
   line-height: 1.2em;
+  z-index: 1;
 }
 
 .btn a {
@@ -94,20 +105,26 @@ p {
   cursor: pointer;
 }
 
+.btn a span,
+.btn2 span {
+  position: relative;
+  z-index: 1;
+}
+
 .btn:hover {
   border: 0px solid transparent;
 }
 
-.btn a:hover:after,
-.btn2:hover:after {
+.btn a:hover:before,
+.btn2:hover:before {
   width: 100%;
   left: 0;
   -webkit-transition: width 0.3s ease;
   transition: width 0.3s ease;
 }
 
-.btn a:after,
-.btn2:after {
+.btn a:before,
+.btn2:before {
   content: "";
   width: 0;
   height: 100%;
@@ -120,9 +137,15 @@ p {
   -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
-
+.btn2:before {
+  z-index: -1;
+}
 .title a:hover {
   color: #aa8453;
+}
+
+#comment textarea {
+  min-height: 150px;
 }
 
 textarea:focus,
@@ -141,7 +164,8 @@ input[type="text"]:focus {
   margin: 0 5px;
 }
 
-.pagination span {
+.pagination span a,
+.pagination span.current {
   background: transparent;
   display: inline-block;
   width: 40px;
@@ -156,6 +180,11 @@ input[type="text"]:focus {
   border-radius: 100%;
 }
 
+.pagination span a:hover,
+.pagination span.current {
+  border-color: #aa8453;
+}
+
 .side-bar .widget {
   display: flex;
   flex-flow: column nowrap;
@@ -166,7 +195,7 @@ input[type="text"]:focus {
   overflow: hidden;
 }
 
-.side-bar .widget h6 {
+.title-widget {
   font-family: "Gilda Display", serif;
   font-weight: 400;
   line-height: 1.75em;
@@ -193,22 +222,21 @@ input[type="text"]:focus {
 .side-bar .recent img {
   width: 90px;
   height: auto;
-  object-fit: contain;
+  object-fit: cover;
   overflow: hidden;
   padding: 5px 0;
+  aspect-ratio: 1/1;
 }
 
 .side-bar .search form button {
-  position: absolute;
-  right: 0;
-  top: 0;
-  background-color: transparent;
-  color: #222;
-  border: 0;
-  padding: 10px;
+  appearance: none;
+  border: none;
   cursor: pointer;
 }
-
+.side-bar .search form {
+  display: flex;
+  gap: 8px;
+}
 .side-bar .search form input {
   width: 100%;
   padding: 10px;
@@ -241,13 +269,37 @@ input[type="text"]:focus {
   transition: all 1s ease-in-out;
 }
 
+.side-bar {
+  margin-top: 50px;
+}
+
 .side-bar a:hover {
   color: #aa8453;
 }
 
-.pagination li a:hover {
-  border-color: #aa8453;
+.alert {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10px 15px;
+  align-items: center;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+  font-size: 14px;
+  width: 100%;
+  justify-content: center;
+  margin: 25px 0 50px 0;
 }
+.alert.alert-success {
+  color: #155724;
+  background-color: #d4edda;
+  border-color: #c3e6cb;
+}
+.alert.alert-error {
+  color: #721c24;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+}
+
 
 @media only screen and (min-width: 576px) {
   .container {
@@ -280,18 +332,13 @@ input[type="text"]:focus {
     flex: 1;
     max-width: 33%;
     padding: 0 15px;
+    margin-top: 0;
   }
 
   .search {
     margin-top: 0;
   }
-
-  .resto-img {
-    display: flex;
-    flex-direction: row;
-  }
 }
-
 @media only screen and (min-width: 992px) {
   .container {
     max-width: 960px;

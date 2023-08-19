@@ -50,19 +50,25 @@ class ArticleRepository extends ServiceEntityRepository
     // /**
     //  * @return Article[] Returns an array of Article objects
     //  */
-    /*
-    public function findByExampleField($value)
+
+    public function findBySearch($value)
     {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('a.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        $queryBuilder = $this->createQueryBuilder("e");
+
+        $query = $queryBuilder->where(
+            $queryBuilder->expr()->orX(
+                $queryBuilder->expr()->like('e.title', ':userSearch'),
+                $queryBuilder->expr()->like('e.description', ':userSearch'),
+                $queryBuilder->expr()->like('e.description2', ':userSearch'),
+                $queryBuilder->expr()->like('e.citation', ':userSearch')
+            )
+        )
+            ->setParameter('userSearch', '%' . $value . '%')
+            ->getQuery();
+
+        return $query->getResult();
     }
-    */
+
 
     /*
     public function findOneBySomeField($value): ?Article
