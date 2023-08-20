@@ -1,21 +1,20 @@
 .footer {
     background-color: #333;
     color: #fff;
-    padding: 40px 0;
+    padding: 40px 0 0;
     margin-top: 50px;
 }
 
 .footer-content {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: flex-start;
-    max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
 }
 
 .footer-logo img {
-    height: 125px;
+    height: 150px;
 }
 
 .footer-links ul {
@@ -47,4 +46,10 @@
     content: "";
     display: table;
     clear: both;
+}
+
+@media screen and (min-width: 768px) {
+    .footer-content {
+        justify-content: space-between;
+    }
 }
