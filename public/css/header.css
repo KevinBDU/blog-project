@@ -1,36 +1,120 @@
-.header {
-    background-color: #333;
-    color: #fff;
-    padding: 20px 0;
-    margin-bottom: 50px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+@import url("https://fonts.googleapis.com/css?family=Open+Sans");
+
+body {
+  background-color: #f2f2f2;
+  font-family: "Open Sans", sans-serif;
 }
 
-.navbar {
+/* START MENU BAR */
+.content {
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+header {
+  width: 100%;
+  background-color: #2f2f2f;
+  margin-bottom: 60px;
+}
+
+.logo img {
+  width: 100px;
+  padding-top: 15px;
+}
+
+.toggler {
+  cursor: pointer;
+  position: absolute;
+  top: 40px;
+  right: 50px;
+}
+
+.toggler svg rect {
+  fill: #e72b54;
+}
+
+/* START NAVIGATION */
+nav {
+  width: 100%;
+  display: none;
+  margin: 0 20px;
+}
+
+nav ul {
+  list-style: none;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: #f2f2f2;
+  font-size: 20px;
+  line-height: 40px;
+  transition: 0.3s ease-out;
+}
+
+nav ul li a:hover {
+  color: #e72b54;
+}
+
+.active {
+  color: #e72b54;
+}
+
+.side-nav {
+  text-align: center;
+}
+
+.side-nav a {
+  text-decoration: none;
+  color: #e72b54;
+  padding-right: 15px;
+  line-height: 40px;
+}
+
+/* END NAVIGATION */
+section {
+  text-align: center;
+  font-size: 10px;
+  color: #2f2f2f;
+  margin-bottom: 20px;
+}
+
+#info {
+  padding-top: 200px;
+  text-align: center;
+  color: #e72b54;
+}
+
+@media screen and (min-width: 768px) {
+  header .content {
+    padding: 0 50px;
     display: flex;
     justify-content: flex-start;
-    align-items: center;
-    margin: 0 auto;
-    padding: 0 20px;
-}
+  }
 
-.navbar-logo img {
-    height: 75px;
-}
+  header .content nav {
+    justify-self: unset;
+  }
 
-.navbar-menu {
-    list-style: none;
+  .toggler {
+    display: none;
+  }
+
+  nav {
     display: flex;
-    gap: 20px;
-    margin: 0 50px;
-}
+    position: relative;
+    width: auto;
+    padding: 5px 0;
+    justify-content: center;
+  }
 
-.navbar-menu li a {
-    color: #fff;
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
+  nav ul {
+    display: flex;
+  }
 
-.navbar-menu li a:hover {
-    color: #ff8c00;
+  nav ul li {
+    padding: 0 30px;
+  }
 }

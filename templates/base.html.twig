@@ -14,11 +14,32 @@
 		{% endblock %}
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow&amp;family=Barlow+Condensed&amp;family=Gilda+Display&amp;display=swap"/>
 		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
+		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 	</head>
 	<body>
 		{% block body %}
 			{% block header %}
-				{% include "header.html.twig" %}
+				<header>
+					<div class="content">
+						<a class="logo" href=""><img src="{{ asset('img/logo.png') }}" alt="Logo"></a>
+						<div class="toggler">
+							<svg viewbox="0 0 100 80" width="40" height="40">
+								<rect width="100" height="20" rx="8"></rect>
+								<rect y="30" width="100" height="20" rx="8"></rect>
+								<rect y="60" width="100" height="20" rx="8"></rect>
+							</svg>
+						</div>
+
+						<!-- Start Navigation -->
+						<nav>
+							<ul>
+								<li><a href="{{path('blog_listing')}}" class="active">{{"Home"|trans}}</a></li>
+								<li><a href="#">{{"About"|trans}}</a></li>
+								<li><a href="#">{{"Contact"|trans}}</a></li>
+							</ul>
+						</nav>
+					</div>
+				</header>
 			{% endblock %}
 			{% block sidebar %}
 				<aside class="side-bar">
@@ -29,8 +50,8 @@
 								<svg fill="#000000" height="16px" width="16px" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewbox="0 0 490.4 490.4" xml:space="preserve">
 									<g>
 										<path d="M484.1,454.796l-110.5-110.6c29.8-36.3,47.6-82.8,47.6-133.4c0-116.3-94.3-210.6-210.6-210.6S0,94.496,0,210.796
-																																	s94.3,210.6,210.6,210.6c50.8,0,97.4-18,133.8-48l110.5,110.5c12.9,11.8,25,4.2,29.2,0C492.5,475.596,492.5,463.096,484.1,454.796z
-																																	 M41.1,210.796c0-93.6,75.9-169.5,169.5-169.5s169.6,75.9,169.6,169.5s-75.9,169.5-169.5,169.5S41.1,304.396,41.1,210.796z"/>
+																																																												s94.3,210.6,210.6,210.6c50.8,0,97.4-18,133.8-48l110.5,110.5c12.9,11.8,25,4.2,29.2,0C492.5,475.596,492.5,463.096,484.1,454.796z
+																																																												M41.1,210.796c0-93.6,75.9-169.5,169.5-169.5s169.6,75.9,169.6,169.5s-75.9,169.5-169.5,169.5S41.1,304.396,41.1,210.796z"/>
 									</g>
 								</svg>
 							</button>
@@ -62,10 +83,10 @@
 							{% endfor %}
 						</ul>
 					</div>
-					{% if tags is defined and tags|length %}
-						<div class="widget tags">
-							<h3 class="title-widget">Tags</h3>
-							<ul>
+					<div class="widget tags">
+						<h3 class="title-widget">Tags</h3>
+						<ul>
+							{% if tags is defined and tags|length %}
 								{% for tag in tags %}
 									<li>
 										<a href="#">{{tag.label}}</a>
@@ -75,16 +96,48 @@
 						</div>
 					{% endif %}
 				</aside>
-			{% endblock sidebar %}
+			{% endblock %}
 			{% block footer %}
-				{% include "footer.html.twig" %}
+				<footer class="footer">
+					<div class="row">
+						<img class="logo-footer" src="{{ asset('img/logo.png') }}" alt="Logo">
+						<div class="footer-col">
+							<h4>{{ "About"|trans }}</h4>
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam orci est, luctus sagittis diam eget, elementum consequat eros. Nulla sed diam ut magna imperdiet tempor. Maecenas placerat erat egestas pharetra luctus. Duis consectetur gravida nunc, in scelerisque nulla
+							</p>
+						</div>
+						<div class="footer-col">
+							<h4>{{ "Explore"|trans }}</h4>
+							<ul>
+								<li><a href="{{path('blog_listing')}}">{{"Home"|trans}}</a></li>
+							</ul>
+						</div>
+						<div class="footer-col">
+							<h4>{{"Contact"|trans}}</h4>
+							<div class="social-links">
+								<a href="#">
+									<i class="fab fa-facebook-f"></i>
+								</a>
+								<a href="#">
+									<i class="fab fa-twitter"></i>
+								</a>
+								<a href="#">
+									<i class="fab fa-instagram"></i>
+								</a>
+								<a href="#">
+									<i class="fab fa-linkedin-in"></i>
+								</a>
+							</div>
+						</div>
+					</div>
+				</footer>
 			{% endblock %}
 		{% endblock body %}
+		{% block javascripts %}
+			<script>
+				var BASE_URL = "{{ path('blog_listing') }}"
+			</script>
+			<script src="{{asset("js/index.js")}}"></script>
+		{% endblock %}
 	</body>
-	{% block javascripts %}
-		<script>
-			var BASE_URL = "{{ path('blog_listing') }}"
-		</script>
-		<script src="{{asset("js/index.js")}}"></script>
-	{% endblock %}
 </html>
