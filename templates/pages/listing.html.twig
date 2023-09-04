@@ -2,9 +2,6 @@
 {% block title %}Listing Article
 {% endblock %}
 {% block body %}
-	{% block header %}
-		{{parent()}}
-	{% endblock %}
 	<div class="container">
 		<section class="listing-post">
 			{% if articles|length >= 1 %}
@@ -41,11 +38,8 @@
 			{{ knp_pagination_render(articles) }}
 
 		</section>
-		{% block sidebar %}
+		{% block aside %}
 			{{parent()}}
 		{% endblock %}
 	</div>
-	{% block footer %}
-		{{parent()}}
-	{% endblock %}
 {% endblock %}
