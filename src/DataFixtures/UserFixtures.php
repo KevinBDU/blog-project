@@ -43,18 +43,6 @@ class UserFixtures extends Fixture implements OrderedFixtureInterface, Container
             $u->setPassword($this->passwordHasher->hashPassword($u, $user[4]));
 
             $manager->persist($u);
-
-            // $email = (new TemplatedEmail())
-            //     ->from(new Address('web@e-corses.com', 'Les Editions Corses'))
-            //     ->to($u->getEmail())
-            //     ->subject('Vos identifiants de connexion')
-            //     ->htmlTemplate('mail/user_created.html.twig')
-            //     ->context([
-            //         'civility' => $u->getCivility(),
-            //         'userEmail' => $u->getEmail(),
-            //         'name' => $u->getName(),
-            //         'password' => $password
-            //     ]);
         }
 
         $manager->flush();

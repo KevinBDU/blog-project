@@ -3,14 +3,11 @@
 	Detail Article
 {% endblock %}
 {% block body %}
-	{% block header %}
-		{{parent()}}
-	{% endblock %}
 	<div class="container">
 		<section class="detail-content">
 			<article class="post">
-				<img src="{{ asset("uploads/img/" ~ article.images) }}" alt="image1"/>
-				<h2>{{ article.title }}</h2>
+				<img src="{{ asset("uploads/" ~ article.images) }}" alt="image1"/>
+				<h3>{{ article.title }}</h3>
 				<p>
 					{{ article.description|raw }}
 				</p>
@@ -25,8 +22,8 @@
 
 				{% if article.image2 or article.image3 %}
 					<div class="detail-img">
-						<img src="{{ asset("uploads/img/" ~ article.image2) }}" alt="image2"/>
-						<img src="{{ asset("uploads/img/" ~ article.image3) }}" alt="image3"/>
+						<img src="{{ asset("uploads/" ~ article.image2) }}" alt="image2"/>
+						<img src="{{ asset("uploads/" ~ article.image3) }}" alt="image3"/>
 					</div>
 				{% endif %}
 				{% if article.description2 %}
@@ -74,13 +71,10 @@
 					{% endfor %}
 				</div>
 			</section>
-			{% block sidebar %}
+			{% block aside %}
 				{{parent()}}
 			{% endblock %}
 		</div>
-		{% block footer %}
-			{{parent()}}
-		{% endblock %}
 	{% endblock %}
 	{% block javascripts %}
 		<script src="{{asset("js/detail.js")}}"></script>

@@ -11,18 +11,17 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Article;
 use App\Form\CommentType;
 use App\Repository\ArticleRepository;
+use Doctrine\Persistence\ManagerRegistry;
 
 class DetailController extends AbstractController
 {
     /**
      * @Route("/detail/{slug}", name="blog_detail")
      */
-    public function index(Request $request, ArticleRepository $repository, $slug): Response
+    public function index(Request $request, ManagerRegistry $managerRegistry, ArticleRepository $repository, $slug): Response
     {
         $posts = $repository->findAll();
         $article = $repository->findOneBySlug($slug);
-        $post = $article;
-
         if (!$article) {
             return $this->redirectToRoute('blog_listing');
         }
@@ -64,7 +63,6 @@ class DetailController extends AbstractController
             'article' => $article,
             'tags' => $article->getTags(),
             'posts' => $posts,
-            'post' => $post,
             'form' => $form->createView()
         ]);
     }

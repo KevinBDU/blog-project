@@ -13,8 +13,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
 const searchForm = document.getElementById("search-article");
 searchForm.addEventListener("submit", function (e) {
-  e.preventDefault(); // Empêche le comportement par défaut du formulaire (rechargement de la page).
-  e.stopPropagation(); // Empêche la propagation de l'événement à d'autres éléments.
+  e.preventDefault(); 
+  e.stopPropagation(); 
   const userSearch = this.elements["search-value"].value;
   const urlEncoded = encodeURI(`${BASE_URL}?userSearch=${userSearch}`);
   window.location = urlEncoded;

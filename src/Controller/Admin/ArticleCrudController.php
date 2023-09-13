@@ -47,14 +47,14 @@ class ArticleCrudController extends AbstractCrudController
             yield TextEditorField::new('citation')->hideOnIndex()->setFormType(CKEditorType::class),
             yield AssociationField::new('category'),
             yield ImageField::new('images')
-                ->setBasePath('uploads/img/')
-                ->setUploadDir('public/uploads/img/'),
+                ->setBasePath('uploads/')
+                ->setUploadDir('public/uploads/'),
             yield ImageField::new('image2')
-                ->setBasePath('uploads/img/')
-                ->setUploadDir('public/uploads/img/'),
+                ->setBasePath('uploads/')
+                ->setUploadDir('public/uploads/'),
             yield ImageField::new('image3')
-                ->setBasePath('uploads/img/')
-                ->setUploadDir('public/uploads/img/')
+                ->setBasePath('uploads/')
+                ->setUploadDir('public/uploads/')
         ];
     }
     public function configureCrud(Crud $crud): Crud

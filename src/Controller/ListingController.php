@@ -16,14 +16,14 @@ class ListingController extends AbstractController
     /**
      * @Route("/", name="blog_listing")
      */
-    public function index(Request $request, ArticleRepository $repository, PaginatorInterface $paginator, TagRepository $tagRepository): Response
+    public function index(Request $request, ArticleRepository $articleRepository, PaginatorInterface $paginator, TagRepository $tagRepository): Response
     {
         $userSearch = $request->query->get('userSearch');
 
         if (isset($userSearch)) {
-            $articles = $repository->findBySearch($userSearch);
+            $articles = $articleRepository->findBySearch($userSearch);
         } else {
-            $articles = $repository->findAll();
+            $articles = $articleRepository->findAll();
         }
 
         $tags = $tagRepository->findAll();
@@ -32,7 +32,7 @@ class ListingController extends AbstractController
         $articles = $paginator->paginate(
             $articles,
             $request->query->getInt('page', 1),
-            5
+            3
         );
 
         return $this->render('pages/listing.html.twig', [
