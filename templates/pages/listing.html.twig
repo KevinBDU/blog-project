@@ -8,7 +8,7 @@
 				{% for article in articles|reverse|slice(0, 5) %}
 					<article class="post">
 						<a class="content-img" href="{{ path('blog_detail', {'slug': article.slug}) }}">
-							<img src="{{ asset("uploads/" ~ article.images) }}" alt=""/>
+							<img class="main-img" src="{{ asset("uploads/" ~ article.images) }}" alt=""/>
 						</a>
 						<div class="post-content">
 							<a href="#">

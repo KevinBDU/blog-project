@@ -6,7 +6,7 @@
 	<div class="container">
 		<section class="detail-content">
 			<article class="post">
-				<img src="{{ asset("uploads/" ~ article.images) }}" alt="image1"/>
+				<img class="main-img" src="{{ asset("uploads/" ~ article.images) }}" alt="image1"/>
 				<h3>{{ article.title }}</h3>
 				<p>
 					{{ article.description|raw }}

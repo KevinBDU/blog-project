@@ -44,11 +44,9 @@ p {
   padding-bottom: 50px;
 }
 
-.post img,
-.detail-content img {
+.main-img {
   width: 100%;
-  height: auto;
-  aspect-ratio: 1/1;
+  max-height: 500px;  
   object-fit: cover;
 }
 
